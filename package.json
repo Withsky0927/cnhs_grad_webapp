@@ -20,7 +20,7 @@
     "express-session": "^1.17.0",
     "helmet": "^3.21.2",
     "mariadb": "^2.1.3",
-    "sequelizer": "^1.1.3"
+    "sequelize": "^5.21.2"
   },
   "devDependencies": {
     "node-sass": "^4.13.0"
