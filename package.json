@@ -1,0 +1,28 @@
+{
+  "name": "cnhs_grad_tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "build": "node-sass --watch scss -o public/css  --style=compressed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/joi": "^16.1.8",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "express-mysql-session": "^2.1.0",
+    "express-session": "^1.17.0",
+    "helmet": "^3.21.2",
+    "mariadb": "^2.1.3",
+    "sequelizer": "^1.1.3"
+  },
+  "devDependencies": {
+    "node-sass": "^4.13.0"
+  }
+}
