@@ -2,8 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
-// controllers for register_route
+// controllers will go here
 const register = require('../controllers/register_controller');
+
+// middlewares will go here
 const registerMiddleware = require('../middlewares/register_middleware');
 
 router.get('/', register.getRegisterForm);

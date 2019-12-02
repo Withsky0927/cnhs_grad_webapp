@@ -1,19 +1,28 @@
-// laod all packages needed
+// load all packages needed
 const express = require('express');
 const session = require('express-session');
-const sessionStore = require('express-mysql-session')(session);
+const MysqlSessionStore = require('express-mysql-session')(session);
 const handlebars = require('express-handlebars');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const path = require('path');
+const rateLimit = require('./config/rate_limiter');
 
-const PORT = process.env.port || 5000;
-
-const server = express();
+// initialize environment variables
 dotenv.config();
 
+// instantiate express contructor
+const server = express();
+
+// initialize sessionStore
+const sessionOption = require('./config/session_config');
+const sessionStore = new MysqlSessionStore(sessionOption);
+
+// initialze port from env variables
+const PORT = process.env.PORT || process.env.DEV_PORT;
+
 // initialize bodyparser for handleing req.body object
-server.use(express.json());
+server.use(express.json({ limit: '200kb' }));
 server.use(express.urlencoded({ extended: false }));
 
 /// set basic security prevention
@@ -27,6 +36,8 @@ server.use(
 );
 server.use(helmet.noSniff());
 server.use(helmet.ieNoOpen());
+server.use(helmet.ieNoOpen());
+server.use(helmet.referrerPolicy({ policy: 'same-origin' }));
 
 // add public folder for static files
 const staticConfig = require('./config/express_static_options');
