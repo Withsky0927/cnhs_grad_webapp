@@ -7,12 +7,26 @@ const dotenv = require('dotenv');
 const helmet = require('helmet');
 const path = require('path');
 const rateLimit = require('./config/rate_limiter');
+const sequelize = require('./config/db_connection');
 
 // initialize environment variables
 dotenv.config();
 
 // instantiate express contructor
 const server = express();
+
+// connect to database
+const dbConnection = sequelize;
+// test the connection
+const checkConnection = async () => {
+  try {
+    await dbConnection.authenticate();
+    console.log('sucessfully connected to the database');
+  } catch (error) {
+    console.log(error);
+  }
+};
+checkConnection();
 
 // initialize sessionStore
 const sessionOption = require('./config/session_config');
@@ -34,8 +48,6 @@ server.use(
     domain: 'https://cdn.ckeditor.com',
   }),
 );
-server.use(helmet.noSniff());
-server.use(helmet.ieNoOpen());
 server.use(helmet.ieNoOpen());
 server.use(helmet.referrerPolicy({ policy: 'same-origin' }));
 
